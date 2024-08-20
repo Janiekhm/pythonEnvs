@@ -310,11 +310,11 @@ As said before, jupyter is locally opened in your browser. It does not connect t
 
 For this course we will rarely use jupyter notebooks and or google colab, but it is good to know they exist. Especially google colab is being used more and more in the scientific community and you are likely to come across these during other courses. 
 
-# Python refresher
+# Putting it to the test
 
 ## Setting up the environment
 
-In the second part of this tutorial we will refresh your python knowledge and build upon it. Again, we advise you to code in Spyder, as this IDE is the recommended IDE for the python part of this course. 
+Now that we know how to set up an environment and run code, lets use this new knowledge and run some python code. Again, During this course advise you to code in Spyder, as this IDE is the recommended IDE for the python part of this course. To practice you might also want to try out jupyter locally and google colab to run the same code.
 
 First, make a directory structure for this tutorial:
 
