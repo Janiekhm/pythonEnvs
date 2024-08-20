@@ -33,7 +33,7 @@ code[class^="sourceCode bash"]::before { content: "Bash Source"; }
 
 ## Introduction
 
-Good afternoon! Today we will introduce how we will work with Python during this course and show some alternative methods. If you are unfamiliar with Python and/or feel that you need more training, follow one of the Datacamp courses as introduction into Python *before today*:
+Good afternoon and welcome to the python part of this course! Today we will introduce how we will work with Python during this course and show some alternative methods. If you are unfamiliar with Python and/or feel that you need more training, follow one of the Datacamp courses as introduction into Python *before today*:
 
 * [Introduction to Python](https://www.datacamp.com/courses/intro-to-python-for-data-science) | recommended to follow if you haven't any scripting experience so far
 * [Python for R users](https://www.datacamp.com/courses/python-for-r-users) | recommended if you have experience already in R
@@ -44,11 +44,11 @@ Good afternoon! Today we will introduce how we will work with Python during this
 - Know how to run a Python script from the terminal
 - Get introduced to Python editors and IDEs
 - Refresh Python programming knowledge
-- Familiarize yourself with some vizualization techniques
+- Familiarize yourself with some visualization techniques
 
 # Introduction to Python
 
-Python is a jack-of-all-trades programming language that is free, flexible, open-source, cross-platform and has a very large community behind it. If you ask Python programmers what they like most about Python, they will often cite its high readability and high availability of good packages. There are many Python packages out there for geoscripting, data wrangling, visualization and machine learning. For example:
+Python is a jack-of-all-trades programming language that is free, flexible, open-source, cross-platform and has a very large community behind it. If you ask Python programmers what they like most about Python, they will often cite its high readability and high availability of good packages. There are many Python packages out there for geoscripting, data wrangling, visualization, machine learning and for almost everything else. Relevant packages for this course are for example:
 
 * Geoscripting
     * GeoPandas (Vector Processing)
@@ -69,9 +69,9 @@ Python is a jack-of-all-trades programming language that is free, flexible, open
     * PyTorch (Deep Learning)
 
 ## Python package management with Conda
-A set of tools co-exist for installing and managing Python packages. It is possible to install packages on your base Python interpreter, but sooner or later you will get conflicting Python packages since packages have varying dependencies. It can even [break your system Python interpreter](https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages).
+The high availability of packages is also a threat sometimes. If a piece of software is developed depending on a package, but this packages changes later on, the code might not work anymore. Also, different packages require different dependencies that they are built upon. It is important to make sure all these dependencies are working together and that the right versions are used. Luckily, a set of tools exist for installing and managing Python packages. It is possible to install packages on your main Python installation (called the **base** python interpreter), but sooner or later you will get conflicting Python packages since packages have varying dependencies and you might have installed several versions of the same package. It can even [break your system Python interpreter](https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages).
 
-Instead, we recommend to use a Python package manager that can make use of virtual environments, such as *Conda* or *Mamba*. That way, you can create a conda environment on your machine for each project. In conda environments, basically anything, such as software, C libraries or R packages can be installed. Here we use them here for installing Python packages. Packages installed in one environment do not interfere with your base Python or with other conda environments. Additionally, it is possible to export and share the requirements for your (open source) project with colaborators or users of your code. 
+Therefor, we recommend to use a Python package manager that uses of virtual environments, such as *Conda* or *Mamba*. That way, you can create a separate environment on your machine for each project. In these environments, any dependencie of the project, such as software, C libraries or R packages can be installed. We will use them here for installing Python packages. Packages installed in one environment do not interfere with your base Python or with other environments. Additionally, it is possible to export and share the requirements for your (open source) project with collaborators or users of your code. 
 
 ## Mamba installation
 For this course, we will make use of *Mamba*, a fast drop-in reimplementation of the *Conda* package manager. It has its core parts implemented in C++ for maximum efficiency, makes use of parallel downloading of repository data and package files using multi-threading, and uses `libsolv` for (much) faster dependency solving. 
@@ -103,12 +103,25 @@ This will install *Mamba* into `~/mamba`. Finally, restart your terminal to be a
 *Mamba* creates isolated conda environments with sets of packages, that do not interfere with your base Python or with other conda environments. To create an environment:
 
 ```{r, eval=FALSE, engine='bash'}
-mamba create --name geotest python numpy
+mamba create --name geotest python numpy spyder
 ```
 
-This would create a new environment called *geotest* with *Python*, *NumPy* and *Spyder* installed into the conda environment. Another option is to create an environment from a `.yaml` file, in which all required modules are listed. You will see an example of this later on in this tutorial. To create an environment from such a file, you can use the argument `--file` (or `--f` in short). 
+This creates a new environment called *geotest* with *Python*, *NumPy* and *Spyder* installed into the conda environment. Another option is to create an environment from a file, a YAML file. In this file all required packages are listed and if required which version should be used. An example of a YAML file is the following: 
+```
+name: geotest
+dependencies:
+  - python
+  - numpy
+  - spyder
+```
+The first line defines what the evnironment will be called (`geotest` in this example) and what packages should be installed (python, numpy and spyder). As you can see, this definition of the `geotest` environment is the exact same as the geotest environment as defined before. To create the geotest environment from such a file, save this yaml to a new file named `env.yaml`, or however you want to call it and use the argument `--file` (or `--f` in short):
 
-Let's first list the currently available environments:
+```{r, eval=FALSE, engine='bash'}
+mamba creat env -f env.yml
+```
+
+
+Let's list the currently available environments:
 
 ```{r, eval=FALSE, engine='bash'}
 mamba info --envs
@@ -222,19 +235,40 @@ The output is printed to the terminal. Running a script from the terminal is les
 ## Python editors and IDEs
 There are many Integrated Development Environments [IDE] for Python, and every programmer has their own preference. An IDE is a software application that provides facilities for software development.
 
-* [Jupyter Notebook](http://jupyter.org/) integrates visualization with code and is suitable to make tutorials, simple dashboards, quick visualizations, and do prototype testing. Jupyter Notebooks run in your browser on a localhost server or on a web server. They allow for various programming languages, e.g. Python, R, Julia, Spark or PySpark. 
 * [Spyder](https://www.spyder-ide.org/) is a lightweight IDE. *In this course, Spyder is the recommended Python IDE.*
+* [Jupyter notebooks](http://jupyter.org/) integrates visualization with code and is suitable to make tutorials, simple dashboards, quick visualizations, and do prototype testing. Jupyter Notebooks run in your browser on a localhost server or on a web server. They allow for various programming languages, e.g. Python, R, Julia, Spark or PySpark. 
 * [PyCharm Community Edition](https://www.jetbrains.com/help/pycharm/install-and-set-up-pycharm.html) is a free professional Python IDE with a lot of advanced functionality, such as integrated GIT version control, code completion, code checking, debugging and navigation. This IDE can optionally be used by more advanced scripters during this course instead of Spyder, but do know that you will not be assisted for solving IDE-related issues.
+
+### Spyder
+
+Spyder is a IDE for developing python mainly for scientific purposes. Fun fact, it is [completely written in python](https://github.com/spyder-ide/spyder)! Spyder is a very complete IDE that looks a bit like Rstudio. It shows the variables present in the current session, it has a code editor, a console and a figures pain in the main view. 
+
+The [Spyder IDE](https://docs.spyder-ide.org/) can be started in a terminal when the *Spyder* package is installed in the active conda environment. So, using *Mamba*, make an environment and install Spyder to that environment. Activate the environment. Spyder will automatically make use of the Python interpreter of the active conda environment. To start Spyder:
+
+```{r, eval=FALSE,engine='bash'}
+spyder
+```
+
+In Spyder you should see an editor, a file explorer and a console. Have a look at the toolbar. Some important shortcuts are:
+
+* F5 to run your script
+* CTRL + S to save your script
+* CTRL + 1 to comment/uncomment your code
+* TAB to indent your code
+* SHIFT + TAB to unindent your code
+
+Open a new file and save it somewhere as `main.py` (File -- > New File --> Save As). Test writing a few lines of code and running the script.
+
 
 ### Jupyter Notebooks
 
-Jupyter Notebooks integrate code and visualization, and are therefore helpful for demonstration purposes. Install `jupyter` and the module `folium` in an existing or new environment that includes Python and start Jupyter:
+Jupyter Notebooks is actually not a IDE but it is very useful for writing code. Jupyter stands for the languages that once can use (*JU*lia, *PY*thon and *R*) and notebooks means that they are actually files instead of an IDE (such as Rstudio or Spyder). The notebooks can be interpreted and run by varying interpreters of which we will cover 2 later on. Jupyter Notebooks integrate code and visualization, and are therefore very helpful for demonstration purposes and to be run by online interperters (such as google colab). first we will show how to run Jupyter Notebooks locally. To do thi install `jupyter` and the module `folium` in an existing or new environment that includes Python and start Jupyter:
 
 ```{r, eval=FALSE, engine='bash'}
 jupyter notebook
 ```
 
-Jupyter should pop up in your browser. You will see a menu with all files in your working directory. The Jupyter Notebook will only see files that are accessible from the working directory in which you launched the notebook!
+Jupyter should pop up in your browser. Note that although jupyter is opened in your browser, internet is not used, the code is interpreted and run locally. You will see a menu with all files in your working directory. The Jupyter Notebook will only see files that are accessible from the working directory in which you launched the notebook!
 
 Make a new folder: *New* → *Folder*, rename the folder (check the box next to the new 'Untitled Folder' and click **'Rename'** in the top) and, in this folder, create a new Python3 Jupyter Notebook *New* → *Python 3*. Give your notebook a name by clicking on *untitled*. Note that this creates a file with the extension *.ipynb*, which stands for Jupyter Notebook. 
 
@@ -267,24 +301,14 @@ To exit a notebook properly, use *File* → *Close and Halt*. After that, by pre
 ```{r, engine='bash', eval=FALSE}
 conda deactivate
 ```
+### Google Colab
+As said before, jupyter is locally opened in your browser. It does not connect to the internet, but it does show the possibilities, one could create something online that can run your notebooks for you on the cloud. This is exactly what Google does with Google Colab. Google Colab is a cloud service that allows you to run your jupyter notebooks on the Google cloud for free. Let's see what this looks like: 
 
-### Spyder
+* Go to https://colab.research.google.com/notebooks/empty.ipynb (note the similaritie and differences between jupyter locally and on google colab)
+* type `!pip install folium` and press ctrl+enter to run and  install folium
+* In a new cell run the same python code as locally to create and show a new folium map
 
-The [Spyder IDE](https://docs.spyder-ide.org/) can be started in a terminal when the *Spyder* package is installed in the active conda environment. So, using *Mamba*, make an environment and install Spyder to that environment. Activate the environment. Spyder will automatically make use of the Python interpreter of the active conda environment. To start Spyder:
-
-```{r, eval=FALSE,engine='bash'}
-spyder
-```
-
-In Spyder you should see an editor, a file explorer and a console. Have a look at the toolbar. Some important shortcuts are:
-
-* F5 to run your script
-* CTRL + S to save your script
-* CTRL + 1 to comment/uncomment your code
-* TAB to indent your code
-* SHIFT + TAB to unindent your code
-
-Open a new file and save it somewhere as `main.py` (File -- > New File --> Save As). Test writing a few lines of code and running the script.
+For this course we will rarely use jupyter notebooks and or google colab, but it is good to know they exist. Especially google colab is being used more and more in the scientific community and you are likely to come across these during other courses. 
 
 # Python refresher
 
