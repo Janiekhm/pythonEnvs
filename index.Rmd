@@ -117,7 +117,7 @@ dependencies:
 The first line defines what the evnironment will be called (`geotest` in this example) and what packages should be installed (python, numpy and spyder). As you can see, this definition of the `geotest` environment is the exact same as the geotest environment as defined before. To create the geotest environment from such a file, save this yaml to a new file named `env.yaml`, or however you want to call it and use the argument `--file` (or `--f` in short):
 
 ```{r, eval=FALSE, engine='bash'}
-mamba env create -f env.yml
+mamba env create -f env.yaml
 ```
 
 
@@ -549,10 +549,6 @@ See how the objects and functions in the `sys` package got listed.
 ```{block, type="alert alert-success"}
 > **Question 4**: What kind of functionality does the `sys` package provide?
 ```
-
-# What have we learned?
-
-#TODO
 
 # More info
 - [Official Python tutorial](https://docs.Python.org/3/contents.html)
