@@ -171,12 +171,6 @@ Now, we deactivate the environment and return to base environment.
 source deactivate
 ```
 
-When we are finished, and do not need the environment for next time, we can remove the environment `geotest`.
-
-```{Python, engine.path='/usr/bin/python3', eval=TRUE}
-mamba remove --name geotest --all
-```
-
 
 ## Running a Python script in the terminal
 
@@ -224,16 +218,96 @@ Lastly, an IDE that is good to mention is [Spyder](https://www.spyder-ide.org/).
 
 ## Visual Studio Code
 
-Visual studio code is a complete IDE that is used by many developers, Python developer but also other languages. To get started in VSCode we will set up a basic project structure and run some very basic code. Create the following files 
+Visual studio code is a complete IDE that is used by many developers, Python developers but also developers for other languages. To get started in VSCode we will set up a basic project structure and run some very basic code. Create the following files: 
 
-    MyPackage
-    ├── MyPackage
-    │   └── __init__.py
-    └── pyproject.toml
-    ├──
-    ---
+```
+  MyPackage/
+  ├── environment.yaml
+  ├── main.py
+  └── MyPackage
+      └── __init__.py
+```
+
+<img src="images/vscode/empty-vscode.png" alt="VScode when you open it for the first time" width="100%"></img>
 
 
+Create an empty directory `MyPackage` and open it using the button that shows in the main screen when you open VSCode. Create the files as the file tree shows above. Open `main.py`, and write the following code:
+```{Python, engine.path='/usr/bin/python3', eval=TRUE}
+print('hello world')
+```
+
+
+VSCode directly recognizes the python file extention (.py) and does some suggestions. In the bottom right you can what type of file VSCode thinks you are working in, it also shows a number, most likely 3.12.3 if you are following this course in 2025. This number is the python version of the interpreter that is now running, more on this later. In the right there is a column with some buttons. These buttons are, from top to bottom, for:
+* Files, showing the project files. Clicking on a file opens it.
+* Search, giving the option to searching and replacing text throughout the project
+* version control, showing the git status of the project. 
+* Run and debug, showing results and the state during debugging
+* Extentions, for insatlling and maintaining extentions. 
+* Testing, for testing code (we will not use this throughout the course)
+
+Open the `environment.yaml` and paste the following in there:
+```
+name: geotest
+dependencies:
+  - python
+  - numpy
+```
+
+<img src="images/vscode/main.py.png" alt="The main.py script" width="100%"></img>
+
+### Extentions 
+
+You can run the code by pressing the play bottom in the top right. When you do this, a terminal pops up, showing the output of the file. As explained before, in vscode we run code per file instead of per line as we are used to in R. As you can see, already out of the box there is some python functionality that is built into VScode, but there is more. Open the extentions pane, type python and install the extentions Python and Python Debugger. These are the extentions that we will use throughout the course, more is not necessary for now, but there is a whole world out there. 
+
+<img src="images/vscode/extentions.png" alt="Python extentions in VSCode" width="100%"></img>
+
+To show you some of this functionality, write the following code in the `MyPackage.__init__.py`: 
+
+```{Python, engine.path='/usr/bin/python3', eval=TRUE}
+def some_function(a_number):
+    print(f'I am printing the number {a_number}') # This is is a formatted string
+```
+
+Now, in the `main.py` file, run the function.:
+```{Python, engine.path='/usr/bin/python3', eval=TRUE}
+some_function(5)
+```
+
+A yellow squiggly line showed up. This means something is wrong with the code. And this is right, if we would run the code python would complain that the function is not known. We forgot to import it, we defined it but did not import it yet. If you stand with your cursor in the function call, and pres `ctrl` + `.`, visual code will try to figure out how to solve the issue. In this case it proposes to import it from `MyPackage.MyPackage`. If you press enter it imports the function. You can now run the function. 
+
+If you press `ctrl` and click on the function in `main.py` you will open the function definition. This is very useful when navigating through a large project.
+
+### Environments in VSCode
+
+As we mentioned before the numbers in the bottom right show the version of the python interpreter associated with the project. We learned about environments before, so let's create an environment. VSCode comes with a bash terminal. If you ran some code before this might be open, otherwise click terminal in the top menu (in the same sectiona as `File` and `Edit`) or press `ctrl`+`shift`+\` (use the backtick, most likely on the top left of your keyboard.) 
+
+First we need to set up our environment. Activate the geotest environment if you created it before or create it using the yaml. 
+
+```{Python, engine.path='/usr/bin/python3', eval=TRUE}
+# One of the following
+mamba env create -f environment.yaml
+
+# or 
+
+source activate geotest 
+```
+
+If `(geotest)` is visible before the active line in the terminal the environment is succesfully activated. However, this is something different than associating it to the project, if you run a file this interpreter will still not be used. To do this we are going to use the Command Palette. Click the bar in the  top center or press `Ctrl` + `Shift` + `p` to open it. Type `>Python: select interpreter`. The `>` sign tells VScode your are looking for commands. Without you can search files in the project. It autocompletes, so `python` is enough. Select it. It should already show up. It also gives the option to create a new environment, more on that later. 
+
+In the `main.py` type: `import numpy as np`. You can see it tries to autocomplete, and if you now type `np.a` VSCode will find all functionality in numpy starting with an a. When you try to import something that does not exist, you can again see this because of the green squiggly line. You can install packages in the environment using the integrated terminal. Check if the terminal has the environment name in brackets in front of the active line, if not close the terminal and open it again.
+
+#: elaborate? 
+
+
+### Debugger & REPL
+
+### Git
+
+
+
+#:TODO debugger
+#:TODO git
+#:TODO 
 
 ## Jupyter Notebook
 
