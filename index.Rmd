@@ -78,7 +78,7 @@ The high availability of packages is also a threat sometimes. Packages also make
 Therefor, we strongly recommend to use a Python package manager that uses of virtual environments. This way, you can create a separate environment on your machine for each project. In these environments, any dependency of the project, such as python packages, other software or C libraries can be installed. We will use them here for installing Python packages. Packages installed in one environment do not interfere with your base Python or with other environments. Additionally, it is possible to export and share  a complete list of the requirements for your (open source) project with collaborators or users of your code. In this way, collaborators can install the dependencies and start working with your code right away, instead of struggling with dependecies first (this is called [Dependency Hell](https://en.wikipedia.org/wiki/Dependency_hell). 
 
 ## Mamba installation
-For this course, we will make use of *Mamba*, a fast drop-in reimplementation of the *Conda* package manager. It has its core parts implemented in C++ for maximum efficiency, makes use of parallel downloading of repository data and package files using multi-threading, and uses `libsolv` for (much) faster dependency solving. To install *Mamba* in your Linux environment, we have prepared a short *Bash* script for you. Just run the following lines of code, line by line, in a new terminal window.
+*Conda* is a widely used tool to manage Python environments and install packages. For this course, we will make use of *Mamba* instead, a fast drop-in reimplementation of the *Conda* package manager. It has its core parts implemented in C++ for maximum efficiency, makes use of parallel downloading of repository data and package files using multi-threading, and uses `libsolv` for (much) faster dependency solving. To install *Mamba* in your Linux environment, we have prepared a short *Bash* script for you. Just run the following lines of code, line by line, in a new terminal window.
 
 ```{bash, eval=FALSE}
 git clone https://github.com/GeoScripting-WUR/InstallLinuxScript.git
@@ -106,7 +106,7 @@ dependencies:
   - folium
 ```
 
-The first line defines what the evnironment will be called (`geotest` in this example) and what packages should be installed (python and numpy). As you can see, this definition of the `geotest` environment is the exact same as the geotest environment as defined before. To create the geotest environment from such a file, save this yaml to a new file named `env.yaml`, or however you want to call it and use the argument `--file` (or `--f` in short):
+The first line defines what the evnironment will be called (`geotest` in this example) and what packages should be installed (python and numpy). As you can see, this definition of the `geotest` environment is the exact same as the geotest environment as defined before. To create the geotest environment from a file, you first need to create a YAML file. You can do this by opening a text editor such as `gedit` or RStudio, pasting the lines above into a new file, and saving it to a new file named `env.yaml`, or however you want to call it and use the argument `--file` (or `--f` in short):
 
 ```{Python, engine.path='/usr/bin/python3', eval=TRUE}
 mamba env create -f env.yaml
@@ -118,7 +118,7 @@ Let's list the currently available environments:
 mamba info --envs
 ```
 
-*Mamba* puts an asterisk (\*) in front of the active environment. Now we activate the environment. While *Mamba* replaces *Conda* for most commands, this is not the case for (de)activating environments:
+*Mamba* puts an asterisk (\*) in front of the active environment. Now we activate the environment. While *Mamba* replaces *Conda* for most commands, it does not replace *Conda* entirely. For example, this is not the case for (de)activating environments:
 
 
 ```{Python, engine.path='/usr/bin/python3', eval=TRUE}
@@ -209,7 +209,7 @@ There are many Integrated Development Environments (IDEs) for Python, and every 
 1. Writing scripts and mainly working with out of the box functionality from packages in notebooks. In this way you might explore some data or do remote analysis that requires a lot of computing resources. Jupyter Notebooks and Jupyter Labs is developed for this purpose. 
     * [Jupyter notebook](http://jupyter.org/) integrates visualization with code and is suitable for making tutorials, dashboards, data exploration, do prototype  testing or run largely predefined functionality. It is not suited to do develop large projects in. Jupyter Notebook runs in a browser on a localhost server or on a web server, for example remotely on a cluster or on [Google cloud](https://colab.research.google.com/). In Jupyter you mix text (documentation or explanation) with code and images (plots for example). Jupyter is cell-based, meaning that code is run per cell. The variables and objects are stored in memory across cells. Since Jupyter saves the state, including the output of a cell, it does not work very well with git. Additional tools are needed for colaborating and making sure that the output from one used does not interfere with another user's output, even if it is the same output. 
   
-2. Writing python code for larger projects, requiring functions, multiple modules and multiple files. For larger projects, some additional tooling is very helpful. IDE's come with tooling to support git, debugging, autocompletion and GenAI. In these IDE's, in contrast to Rstudio, code is run per file instead of line by line or cell by cell as in notebooks. A file might import other files and so on. This might need some getting used to but the debugger is there to help ou and inspect how the interpreter is reading your code. Two IDE's that are good to know: 
+2. Writing python code for larger projects, requiring functions, multiple modules and multiple files. For larger projects, some additional tooling is very helpful. IDE's come with tooling to support git, debugging, autocompletion and GenAI. In these IDE's, in contrast to Rstudio, code is run per file instead of line by line or cell by cell as in notebooks. A file might import other files and so on. This might need some getting used to but the debugger is there to help you and inspect how the interpreter is reading your code. Two IDE's that are good to know: 
     * [Visual Studio Code](https://code.visualstudio.com/): Visual Studio Code (VSCode) is a very complete IDE. It can be used to develop software in almost all languages and it has a lost of advanced functionality. VSCode is developed by Microsoft, but it is built upon an open source distribution and numerous packages exist that are open source, for example Python functionality. *In this course, VSCode is the recommended Python IDE, it is pre-installed. in the Linux VM.*
     * [PyCharm Community Edition](https://www.jetbrains.com/help/pycharm/install-and-set-up-pycharm.html) is a free professional Python IDE with a lot of advanced functionality, such as integrated GIT version control, code completion, code checking, debugging and navigation. This IDE can optionally be used as an alternative to VSCode. If you have experience, you can use Pycharm instead of VSCode, but do know that you will not be assisted for solving IDE-related issues.
 
@@ -238,7 +238,7 @@ Create an empty directory `MyPackage` and open it using the button that shows in
 print('hello world')
 ```
 
-VSCode directly recognizes the python file extension (.py) and does some suggestions. In the bottom right you can what type of file VSCode thinks you are working in, it also shows a number, most likely 3.12.x if you are following this course in 2025. This number is the python version of the interpreter that is now running, more on this later. In the right there is a column with some buttons. These buttons are, from top to bottom, for:
+VSCode directly recognizes the python file extension (.py) and does some suggestions. In the bottom right you can what type of file VSCode thinks you are working in, it also shows a number, most likely 3.12.x if you are following this course in 2025. This number is the python version of the interpreter that is now running, more on this later. In the left there is a column with some buttons. These buttons are, from top to bottom, for:
 
   * Files, showing the project files. Clicking on a file opens it.
   * Search, giving the option to searching and replacing text throughout the project
@@ -265,7 +265,7 @@ dependencies:
 
 ### Extensions 
 
-You can run the code by pressing the play bottom in the top right. When you do this, a terminal pops up, showing the output of the file. As explained before, in VSCode we run code per file instead of per line as we are used to in R. As you can see, already out of the box there is some python functionality that is built into VSCode, but there is more. Open the extensions pane, type python and install the extensions *Python*,  *Python Debugger* and *jupyter*. These are the extensions that we will use throughout the course, more is not necessary for now, but there is a whole world out there. 
+You can run the code by pressing the play button in the top right. When you do this, a terminal pops up, showing the output of the file. As explained before, in VSCode we run code per file instead of per line as we are used to in R. As you can see, already out of the box there is some python functionality that is built into VSCode, but there is more. Open the extensions page, type python and install the extensions *Python*,  *Python Debugger* and *jupyter*. These are the extensions that we will use throughout the course, more is not necessary for now, but there is a whole world out there. 
 
 <img src="images/VSCode/extentions.png" alt="Python extensions in VSCode" width="100%"></img>
 
@@ -319,7 +319,7 @@ You start the debugger by instead of clicking on the run arrow, click on the sma
 
 <img src="images/VSCode/debugger.png" alt="The debugger in VSCode" width="100%"></img>
 
-If you step into the function we can find out the real value of the debugger. On the top left pain we can see the local variables, the variables that are known within the function, and the global variables. These are the variables for this module. In the bottom left we can switch to different modules, when clicking on `<module>   main.py` we can inspect the variables known in the script `main.py`. It is directly clear how python handles variables, what is known within a function and what is not. Switch to the `some_function` scope and you can see there is 1 local variable `a_number` which is the input the the function, 5 in this example. When you will start making use of more advanced objects with properties and methods this variable overview will become more elaborate.
+If you step into the function we can find out the real value of the debugger. On the top left panel we can see the local variables, the variables that are known within the function, and the global variables. These are the variables for this module. In the bottom left we can switch to different modules, when clicking on `<module>   main.py` we can inspect the variables known in the script `main.py`. It is directly clear how python handles variables, what is known within a function and what is not. Switch to the `some_function` scope and you can see there is 1 local variable `a_number` which is the input the the function, 5 in this example. When you will start making use of more advanced objects with properties and methods this variable overview will become more elaborate.
 
 #### REPL
 Additionally to the debugger, you can play around with code in jupyter style notebooks. You can start the repl by opening the command palette (`Ctrl` + `Shift` + `P`) and type _repl_, and click _'Python: Start Native Python REPL'_. A new window will show up, and if you type some python in the cell that says _Press Enter to execute_, for example `print('hello everybody!!')`. The code you ran shows up in a cell and the output in the cell below. This is how notebooks work, they contain code per cell and show the results in line. 
@@ -357,7 +357,7 @@ We have seen how we can use notebooks in the REPL, but there are different ways 
 
 ### Jupyter Notebook
 
-Jupyter Notebook is actually not a IDE but it is very useful for writing code. Jupyter stands for the languages that once can use (*JU*lia, *PY*thon and *R*) and notebooks means that they are actually files instead of an IDE (such as Rstudio or Spyder). The notebooks can be interpreted and run by varying interpreters of which we will cover two later on. Jupyter Notebook integrates code and visualization, and are therefore very helpful for demonstration purposes and to be run by online interpreters (such as Google Colab). First we will show how to run Jupyter Notebook locally. To do this install `jupyter` and the module `folium` in an existing or new environment that includes Python. To start Jupyter type:
+Jupyter Notebook is actually not a IDE but it is very useful for writing code. Jupyter stands for the languages that once can use (*JU*lia, *PY*thon and *R*) and notebooks means that they are actually files instead of an IDE (such as Rstudio or Spyder). The notebooks can be interpreted and run by varying interpreters of which we will cover two later on. Jupyter Notebook integrates code and visualization, and are therefore very helpful for demonstration purposes and to be run by online interpreters (such as Google Colab). First we will show how to run Jupyter Notebook locally. To do this install `jupyter` and the module `folium` in an existing or new environment that includes Python. To start Jupyter type in the terminal:
 
 ```{Python, engine.path='/usr/bin/python3', eval=TRUE}
 jupyter notebook
