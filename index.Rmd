@@ -338,9 +338,122 @@ Run the code cell by selecting it and pressing the *Run* button, or press *CTRL 
 <img src="images/WUR_Basic_Folium_Map.png" alt="Wageningen University Basic Folium map" width="100%"></img>
 
 
-### Git
-Probably something with cloning a repo from the beginning instead of creating files and stuff. Maybe start with git? Anyway, this is still to do. 
+### Using Git source control in VS Code
+
 <!-- #:TODO git -->
+<!-- #:I put some simple thing here which I think might be helpful for beginners, considering Git is already covered in tutorial-1, here is focuses more on the visual GUI of VS Code. Feel free to adjust, reject and modify them --Xuemeng -->
+
+You've already learned how to use Git in the terminal from previous courses. In this section, we'll show you how to use Git directly within **Visual Studio Code (VSCode)**.
+
+There are two main ways to work with Git in VSCode:
+
+1. **Use the integrated terminal**, just like you did in earlier exercises.  
+2. **Use VSCode’s built-in Git interface**, which provides a visual way to interact with Git.
+
+In this tutorial, we will focus more on option 2, as you're already familiar with the command-line approach.
+
+
+Click on the **Source Control** icon (it looks like a branch) in the left sidebar, or press `Ctrl + Shift + G` to open the Git panel in VSCode.
+
+This interface is especially helpful for beginners who prefer visual feedback or want to avoid typing commands manually — though keep in mind that it may be less efficient than using the terminal.
+
+
+#### Start from a Git Repository
+
+The initial state of the **Source Control** panel depends on whether you've opened a folder and whether that folder is already a Git repository:
+
+- If **no folder is opened**, you’ll see options to:
+  - **Open Folder** (from your local machine)
+  - **Clone Repository** (from GitHub or other remotes)
+
+- If a **folder is opened but not initialized as a Git repository**, you’ll see:
+  - **Initialize Repository**
+  - **Publish to GitHub**
+
+- If you’ve opened a **folder that is already a Git repository**, the panel will show:
+  - A blue **Commit** input box on top
+  - A `Changes` section listing modified or new files
+  - A `GRAPH` section showing the Git commit history in visual form
+
+<img src="images/vscode_git/git_vscode_1.png" alt="Source Control panel" width="100%"></img>
+
+
+#### `git status` – View modified files
+
+Under the `Changes` section, you'll see all modified, untracked, or staged files. Each file has a status label:
+
+- `U` – Untracked  
+- `M` – Modified  
+- `A` – Added (staged)
+
+You can click on any file to view the diff — i.e., what lines have been changed — in a side-by-side comparison.
+
+<img src="images/vscode_git/git_vscode_2.png" alt="Source Control panel, files status" width="100%"></img>
+
+
+#### `git add` / `git reset` – stage or unstage Files
+
+To **stage** a file (equivalent to `git add`), hover over it and click the **`+`** icon.
+
+To **unstage** a file (equivalent to `git reset HEAD`), hover over it again (now in the **Staged Changes** area) and click the **`-`** icon.
+
+This allows you to control which files you want to include in your next commit.
+
+
+#### `git commit` – Commit your changes
+
+Once you've staged the desired files, you can commit them:
+
+1. Enter a short commit message in the blue bar at the top.
+2. Click the **✓ (checkmark)** icon to commit.
+
+VSCode may open a `COMMIT_EDITMSG` tab for a longer message if needed. You could also fill in the commit message above the commit blue bar. After committing, your changes will appear as a new node in the `GRAPH` panel, showing a visual update to the repository’s commit history.
+
+<img src="images/vscode_git/git_vscode_3.png" alt="Source Control panel, commit message" width="100%"></img>
+
+#### `git push` – push local commits to remote
+
+To **push** your local commits to a remote repository (like GitHub), click the `...` (More Actions) menu in the top-right of the Source Control panel, and then select **Push**.
+
+<img src="images/vscode_git/git_vscode_5.png" alt="Source Control panel, git pull" width="100%"></img>
+
+Once done, your changes will be reflected in the remote repository.
+
+<img src="images/vscode_git/git_vscode_4.png" alt="Source Control panel, new push shown in GRAPH" width="100%"></img>
+
+#### `git pull` – download and Merge Remote Changes
+
+To update your local repository with any changes from the remote, open the `...` menu in the Source Control panel and select **Pull**.
+
+In this section, we demonstrate how VS Code handles *artificially created conflicts* (i.e., when the local and remote branches diverge). You don’t need to follow along step-by-step — just observe how it works in the interface. In `GRAPH`, the divergent branches will be shown quite intuitively:
+
+<img src="images/vscode_git/git_vscode_7_merge.png" alt="Source Control panel, divergent branches" width="100%"></img>
+
+If someone else (or you, on another machine) has pushed changes to the remote, pulling will fetch those changes and attempt to merge them into your current branch. However, if your local branch has diverged from the remote, Git requires a strategy to reconcile them — either by **merging** or **rebasing**. Unlike the terminal, **VS Code does not prompt you explicitly** when this happens. Instead, the pull will fail until you configure your preferred reconciliation strategy. You can set this using the terminal inside VS Code `git config --global pull.rebase false`. After configuring, subsequent pulls will proceed smoothly.
+
+VS Code provides a **3-way merge editor** to help resolve them visually. Files with conflicts will show a **Resolve in Merge Editor** button at the bottom right — click it to open the editor.
+
+<img src="images/vscode_git/git_vscode_8_merge.editor.png" alt="Source Control panel, conflicts in two branches" width="100%"></img>
+
+The 3-way merge editor displays:
+
+- Incoming changes (from remote, left side)
+- Current changes (your local edits, right side)
+- Result (the merged version, bottom)
+
+You can click buttons above each section to choose whether to accept incoming, current, or both changes. 
+
+<img src="images/vscode_git/git_vscode_9_merge.editor2.png" alt="Source Control panel, 3 way merge editor" width="100%"></img>
+
+After resolving all conflicts and completing the merge, you’ll see the branches merged back together in the `GRAPH` panel:
+
+<img src="images/vscode_git/git_vscode_10_one.branch.again.png" alt="Source Control panel, merged into one branch" width="100%"></img>
+
+#### More!
+
+The Git operations we covered here are just the basics. VS Code offers many more features through its Source Control panel — from viewing diffs, to switching branches, to managing stashes.
+
+To go further, check out the [tutorial](https://code.visualstudio.com/docs/sourcecontrol/overview#_source-control-graph) on using Source Control panel.
 
 
 ### Extra material
