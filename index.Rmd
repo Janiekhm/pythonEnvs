@@ -31,6 +31,7 @@ code[class^="sourceCode bash"]::before { content: "Bash Source"; }
 
 # Tutorial 8: Python Environments
 
+
 ## Introduction
 
 Good afternoon and welcome to the python part of this course! Today we will introduce how we will work with Python during this course and show some alternative methods. If you are unfamiliar with Python and/or feel that you need more training, follow one of the Datacamp courses as introduction into Python *before today*:
