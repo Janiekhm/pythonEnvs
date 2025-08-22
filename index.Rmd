@@ -220,7 +220,9 @@ Lastly, an IDE that is good to mention is [Spyder](https://www.spyder-ide.org/).
 
 ## Visual Studio Code
 
-Visual studio code is a complete IDE that is used by many developers, Python developers but also developers for other languages. To get started in VSCode we will set up a basic project structure and run some very basic code. Create the following files: 
+Visual studio code is a complete IDE that is used by many developers, Python developers but also developers for other languages. To get started in VSCode we will set up a basic project structure and run some very basic code. There is a difference opening a file and opening a project in VSCode. Opening a file will let you edit that file and possibly run it. Opening a directory or a project consisting of multiple (sub)directories will let you set a default interpreter, search and replace throughout the project and navigate to function imports and many more advantages. We recommend you to generally use a seperate project for each tutorial, exercise and assignment. In that way you can use dedicated environments and keep a coherent folder structure throughout the course. 
+
+Create the following files: 
 
 ```
   MyPackage/
