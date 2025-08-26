@@ -248,10 +248,19 @@ VSCode directly recognizes the python file extension (.py) and does some suggest
   * version control, showing the git status of the project. 
   * Run and debug, showing results and the state during debugging
   * Extensions, for installing and maintaining extensions. 
-  * Testing, for testing code (we will not use this throughout the course)
+  * Testing, for testing code (we will not use this throughout the course) 
 
 ```{block type="alert alert-danger"}
 **Warning for students taking the course**: VSCode comes with advanced integration of generative AI. It is recommended to not make use of GenAI while learning to code. Struggling through how to get a script working is how you learn, and that is what this course is about. Generating the correct result will not teach you anything.
+
+It is recommended to turn off automatic features that copilot offers. You can do this by
+1.  going  to File → Preferences → Settings (or press Ctrl+,). 
+2. In the search bar, type "Copilot".
+3. Find the settings for:
+    GitHub Copilot: Enable (controls code completions)
+    GitHub Copilot Chat: Enable (controls chat/agent features)
+Uncheck or set these to "false" to disable them globally.
+
 ```
 
 Open the `environment.yaml` and paste the following in there:
