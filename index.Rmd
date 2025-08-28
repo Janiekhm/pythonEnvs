@@ -352,9 +352,6 @@ Run the code cell by selecting it and pressing the *Run* button, or press *CTRL 
 
 ### Using Git source control in VS Code
 
-<!-- #:TODO git -->
-<!-- #:I put some simple thing here which I think might be helpful for beginners, considering Git is already covered in tutorial-1, here is focuses more on the visual GUI of VS Code. Feel free to adjust, reject and modify them --Xuemeng -->
-
 You've already learned how to use Git in the terminal from previous courses. In this section, we'll show you how to use Git directly within **Visual Studio Code (VSCode)**.
 
 There are two main ways to work with Git in VSCode:
@@ -676,7 +673,69 @@ result = add_numbers(5, 3)
 print(result)  # Output: 8
 ```
 
+Functions can be used to automate tedious tasks that you do often. Some examples would be creating directories if they don't exist, or downloading and unzipping files. For example: 
 
+```{python, engine = 'Python', eval=FALSE}
+import os
+def make_directory(directory_name):
+    # Check if directory already exists
+    if not os.path.exists(directory_name):
+        os.mkdir(directory_name)
+
+```
+
+```{python, engine = 'Python', eval=FALSE}
+import requests
+import zipfile
+import os
+
+def download_and_unzip(url: str, extract_to: str = "."):
+    """
+    Downloads a ZIP file from a URL and extracts it.
+    This function was written by ChatGPT and edited and checked for correctness by Arno Timmer
+
+    Args:
+        url (str): The URL to the ZIP file.
+        extract_to (str): Directory where the files will be extracted.
+    """
+    # Get filename from URL
+    local_zip_path = os.path.join(extract_to, url.split("/")[-1])
+
+    # Download the file
+    response = requests.get(url)
+    response.raise_for_status()
+
+    with open(local_zip_path, "wb") as f:
+        f.write(response.content)
+
+    # Extract the zip file
+    with zipfile.ZipFile(local_zip_path, "r") as zip_ref:
+        zip_ref.extractall(extract_to)
+
+    # remove the zip file
+    os.remove(local_zip_path)
+```
+
+As you can see functions don't need to return something, but can also return multiple things. If they do, be careful to also store the returned values in multiple variables! If not, they are stored as a tuple.
+
+```{r, engine = 'Python', eval=FALSE}
+def multiply_value(a):
+    ''' 
+    This function multiplies value a with 100 and with 1000. It returns both the results.
+    '''
+    hundredfold = 100 * a 
+    thousandfold = 1000 * a
+    return hundredfold, thousandfold
+
+# When called like this both values are stored as a tuple
+results = multiply_value(5)
+print(type(results))
+print(f'We calculated the hundredfold of a number: {results[0]} and the thousandfold: {results[1]}' )
+
+# But we can also call it like this:
+hundreds, thousands = multiply_value(10)
+print(f'We calculated the hundredfold of a number: {hundreds} and the thousandfold: {thousands}' )
+```
 ### Dictionaries
 ```{r, engine = 'Python', eval=FALSE}
 # Creating a dictionary
