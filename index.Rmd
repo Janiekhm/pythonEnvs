@@ -170,7 +170,7 @@ mamba remove geopandas pandas folium
 Now, we deactivate the environment and return to base environment.
 
 ```{bash, eval=FALSE}
-source deactivate
+conda deactivate
 ```
 
 
