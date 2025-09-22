@@ -76,7 +76,7 @@ Relevant packages for this course are for example:
 ## Python package management with Conda
 The high availability of packages is also a threat sometimes. Packages also make use of code and functionality from other packages. We call this dependancy. If a piece of software is developed depending on a package, but this packages changes later on, the initial piece of software not work anymore. Different packages require different dependencies that they are built upon. It is important to make sure all these dependencies are working together and that the right versions of the dependencies are used. Luckily, a set of tools exist for installing and managing Python packages. It is possible to install packages on your main Python installation (This main python is called the **base** python interpreter), but sooner or later you will get conflicting Python packages since packages have varying dependencies and you might have installed several versions of the same package. It can even [break your system Python interpreter](https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages). 
 
-Therefor, we strongly recommend to use a Python package manager that uses of virtual environments. This way, you can create a separate environment on your machine for each project. In these environments, any dependency of the project, such as python packages, other software or C libraries can be installed. We will use them here for installing Python packages. Packages installed in one environment do not interfere with your base Python or with other environments. Additionally, it is possible to export and share  a complete list of the requirements for your (open source) project with collaborators or users of your code. In this way, collaborators can install the dependencies and start working with your code right away, instead of struggling with dependecies first (this is called [Dependency Hell](https://en.wikipedia.org/wiki/Dependency_hell). 
+Therefore, we strongly recommend to use a Python package manager that uses virtual environments. This way, you can create a separate environment on your machine for each project. In these environments, any dependency of the project, such as python packages, other software or C libraries can be installed. We will use them here for installing Python packages. Packages installed in one environment do not interfere with your base Python or with other environments. Additionally, it is possible to export and share  a complete list of the requirements for your (open source) project with collaborators or users of your code. In this way, collaborators can install the dependencies and start working with your code right away, instead of struggling with dependecies first (this is called [Dependency Hell](https://en.wikipedia.org/wiki/Dependency_hell). 
 
 ## Mamba installation
 *Conda* is a widely used tool to manage Python environments and install packages. For this course, we will make use of *Mamba* instead, a fast drop-in reimplementation of the *Conda* package manager. It has its core parts implemented in C++ for maximum efficiency, makes use of parallel downloading of repository data and package files using multi-threading, and uses `libsolv` for (much) faster dependency solving. To install *Mamba* in your Linux environment, we have prepared a short *Bash* script for you. Just run the following lines of code, line by line, in a new terminal window.
@@ -93,7 +93,7 @@ This will install *Mamba* into `~/mamba`. Finally, restart your terminal to be a
 ## Mamba usage
 *Mamba* creates isolated conda environments with sets of packages, that do not interfere with your base Python or with other conda environments. To create an environment:
 
-```{Python, engine.path='/usr/bin/python3', eval=TRUE}
+```{bash, eval=FALSE}
 mamba create --name geotest python numpy folium
 ```
 
@@ -109,20 +109,20 @@ dependencies:
 
 The first line defines what the evnironment will be called (`geotest` in this example) and what packages should be installed (python and numpy). As you can see, this definition of the `geotest` environment is the exact same as the geotest environment as defined before. To create the geotest environment from a file, you first need to create a YAML file. You can do this by opening a text editor such as `gedit` or RStudio, pasting the lines above into a new file, and saving it to a new file named `env.yaml`, or however you want to call it and use the argument `--file` (or `--f` in short):
 
-```{Python, engine.path='/usr/bin/python3', eval=TRUE}
+```{bash, eval=FALSE}
 mamba env create -f env.yaml
 ```
 
 Let's list the currently available environments:
 
-```{Python, engine.path='/usr/bin/python3', eval=TRUE}
+```{bash, eval=FALSE}
 mamba info --envs
 ```
 
 *Mamba* puts an asterisk (\*) in front of the active environment. Now we activate the environment. While *Mamba* replaces *Conda* for most commands, it does not replace *Conda* entirely. For example, this is not the case for (de)activating environments:
 
 
-```{Python, engine.path='/usr/bin/python3', eval=TRUE}
+```{bash, eval=FALSE}
 source activate geotest
 ```
 
@@ -136,13 +136,13 @@ After creating a conda environment, (additional) Python packages can be installe
 
 The `mamba search` command searches a set of channels. By default, packages are automatically downloaded and updated from the default channel. To search for a package, type:
 
-```{Python, engine.path='/usr/bin/python3', eval=TRUE}
+```{bash, eval=FALSE}
 mamba search pandas
 ```
 
 This gives a list of all packages that have "pandas" in the name and lists all available versions. To install:
 
-```{Python, engine.path='/usr/bin/python3', eval=TRUE}
+```{bash, eval=FALSE}
 mamba install pandas
 ```
 
@@ -150,7 +150,7 @@ This installs the latest compatible version of _Pandas_. Note that this would in
 
 Note that you can also install multiple packages at the same time: 
 
-```{Python, engine.path='/usr/bin/python3', eval=TRUE}
+```{bash, eval=FALSE}
 mamba install geopandas matplotlib
 ```
 
@@ -163,13 +163,13 @@ Some additional helpful utilities for package management in this context are:
 
 Removing packages is just as simple:
 
-```{Python, engine.path='/usr/bin/python3', eval=TRUE}
+```{bash, eval=FALSE}
 mamba remove geopandas pandas folium
 ```
 
 Now, we deactivate the environment and return to base environment.
 
-```{Python, engine.path='/usr/bin/python3', eval=TRUE}
+```{bash, eval=FALSE}
 source deactivate
 ```
 
@@ -178,7 +178,7 @@ source deactivate
 
 Within a conda environment, Python can be started directly, or can be called to run a script file. To start Python directly:
 
-```{Python, engine.path='/usr/bin/python3', eval=TRUE}
+```{bash, eval=FALSE}
 python
 ```
 
@@ -190,7 +190,7 @@ print(f'Good morning, you are running Python version: {sys.version}')
 ```
 
 To go back, type:
-```{Python, engine.path='/usr/bin/python3', eval=TRUE}
+```{bash, eval=FALSE}
 exit()
 # or 
 quit()
@@ -198,7 +198,7 @@ quit()
 
 Usually, we do not want to run expressions one by one, but build scripts instead, to ensure transferability and reproducibilty. Create a new text file and (re)name it (to) `test.py`. Open it, for example with a text editor, paste in the code you used above (`import sys` etc.), and save the script. Navigate in the terminal to the location where this script is stored, using `cd`. Finally, run the script with:
 
-```{Python, engine.path='/usr/bin/python3', eval=TRUE}
+```{bash, eval=FALSE}
 python test.py
 ```
 
@@ -303,7 +303,7 @@ As we mentioned before the numbers in the bottom right show the version of the p
 
 First we need to set up our environment. Activate the _geotest_ environment if you created it before or create it using the yaml. 
 
-```{Python, engine.path='/usr/bin/python3', eval=TRUE}
+```{bash, eval=FALSE}
 # One of the following
 mamba env create -f environment.yaml
 
@@ -481,7 +481,7 @@ We have seen how we can use notebooks in the REPL, but there are different ways 
 
 Jupyter Notebook is actually not a IDE but it is very useful for writing code. Jupyter stands for the languages that once can use (*JU*lia, *PY*thon and *R*) and notebooks means that they are actually files instead of an IDE (such as Rstudio or Spyder). The notebooks can be interpreted and run by varying interpreters of which we will cover two later on. Jupyter Notebook integrates code and visualization, and are therefore very helpful for demonstration purposes and to be run by online interpreters (such as Google Colab). First we will show how to run Jupyter Notebook locally. To do this install `jupyter` and the module `folium` in an existing or new environment that includes Python. To start Jupyter type in the terminal:
 
-```{Python, engine.path='/usr/bin/python3', eval=TRUE}
+```{bash, eval=FALSE}
 jupyter notebook
 ```
 
@@ -513,7 +513,7 @@ Spyder is a IDE for developing python mainly for scientific purposes. Fun fact, 
 
 The [Spyder IDE](https://docs.spyder-ide.org/) can be started in a terminal when the *Spyder* package is installed in the active conda environment. So, using *Mamba*, make an environment and install Spyder to that environment. Activate the environment. Spyder will automatically make use of the Python interpreter of the active conda environment. To start Spyder:
 
-```{r, eval=FALSE,engine='bash'}
+```{bash, eval=FALSE}
 spyder
 ```
 
@@ -559,7 +559,7 @@ dependencies:
 
 Now, create a new conda environment based on this file. You can do this in a ubuntu terminal, or a terminal in VSCode. To open the terminal in VSCode press `Ctrl` + `shift` + `P` and type terminal and select _Create New Terminal (With Profile)_
 
-```{Python, engine.path='/usr/bin/python3', eval=TRUE}
+```{bash, eval=FALSE}
 mamba env create --file refresher.yaml
 ```
 
